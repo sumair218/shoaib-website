@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoib Akhter - AI Developer</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+          --primary-bg: #1f242d;
+          --secondary-bg: #2a3039;
+          --accent-color: #7cf03d;
+          --text-primary: #fff;
+          --text-secondary: #b8b8b8;
+          --transition-speed: 0.3s;
+        }
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+          scroll-behavior: smooth;
+          width: 100%;
+          overflow-x: hidden;
+        }
+
+        body {
+          background-color: var(--primary-bg);
+          color: var(--text-primary);
+          line-height: 1.6;
+          overflow-x: hidden;
+          width: 100%;
+          position: relative;
+        }
+
+        /* Header & Navigation */
+        .header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          padding: 1rem 5%;
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(10px);
+          z-index: 100;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: all var(--transition-speed) ease;
+        }
+
+        .header.scrolled {
+          padding: 0.7rem 5%;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .logo {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: var(--accent-color);
+          text-decoration: none;
+          transition: all var(--transition-speed) ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .logo:hover {
+          transform: scale(1.05);
+          text-shadow: 0 0 15px rgba(124, 240, 61, 0.6);
+        }
+
+        .nav-links {
+          display: flex;
+          list-style: none;
+          transition: all 0.5s ease;
+        }
+
+        .nav-links li {
+          margin-left: 3.5rem;
+          position: relative;
+        }
+
+        .nav-links li a {
+          font-size: 1.1rem;
+          font-weight: 500;
+          color: var(--text-primary);
+          text-decoration: none;
+          transition: color var(--transition-speed) ease;
+          position: relative;
+          padding: 0.5rem 0;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li.active a {
+          color: var(--accent-color);
+        }
+
+        .nav-links li a::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--accent-color);
+          transition: width var(--transition-speed) ease;
+        }
+
+        .nav-links li a:hover::after,
+        .nav-links li.active a::after {
+          width: 100%;
+        }
+
+        .menu-toggle {
+          display: none;
+          cursor: pointer;
+          z-index: 101;
+        }
+
+        .menu-toggle span {
+          display: block;
+          width: 25px;
+          height: 3px;
+          background: var(--text-primary);
+          margin: 5px 0;
+          transition: all var(--transition-speed) ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* About Section */
+        .about {
+          min-height: 100vh;
+          padding: 10rem 5% 5rem;
+          display: flex;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .about::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(124, 240, 61, 0.03) 0%, transparent 70%);
+          animation: rotate 20s linear infinite;
+          z-index: -1;
+        }
+
+        @keyframes rotate {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        .about-content {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 3rem;
+          align-items: center;
+        }
+
+        .about-info {
+          width: 100%;
+        }
+
+        .about-image {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .profile-img {
+          width: 100%;
+          max-width: 400px;
+          border-radius: 20px;
+          box-shadow: 0 0 30px rgba(124, 240, 61, 0.3);
+          transition: all 0.5s ease;
+          z-index: 2;
+          transform-style: preserve-3d;
+          animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0) rotateY(0deg); }
+          50% { transform: translateY(-20px) rotateY(5deg); }
+        }
+
+        .profile-img:hover {
+          transform: scale(1.02) rotateY(10deg);
+          box-shadow: 0 0 50px rgba(124, 240, 61, 0.5);
+        }
+
+        .tech-icons {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 1;
+        }
+
+        .tech-icon {
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          background: var(--secondary-bg);
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+          animation: float 6s ease-in-out infinite;
+          transition: all 0.3s ease;
+        }
+
+        .tech-icon:hover {
+          transform: scale(1.2);
+          box-shadow: 0 0 20px rgba(124, 240, 61, 0.5);
+        }
+
+        .tech-icon i {
+          font-size: 1.5rem;
+          color: var(--accent-color);
+        }
+
+        .section-title {
+          font-size: 3.5rem;
+          font-weight: 700;
+          margin-bottom: 1.5rem;
+          line-height: 1.2;
+        }
+
+        .section-title span {
+          color: var(--accent-color);
+          text-shadow: 0 0 10px rgba(124, 240, 61, 0.5);
+        }
+
+        /* Animation Container */
+        .animation-container {
+          display: inline-block;
+          width: 100%;
+          margin-bottom: 1.5rem;
+          min-height: 4rem;
+          position: relative;
+        }
+
+        .animated-text {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: transparent;
+          -webkit-text-stroke: 0.7px var(--accent-color);
+          display: inline;
+          line-height: 1.4;
+        }
+
+        .typed-text {
+          color: var(--accent-color);
+          display: inline;
+          position: relative;
+          white-space: nowrap;
+        }
+
+        .cursor {
+          display: inline-block;
+          width: 3px;
+          height: 2.8rem;
+          background: var(--accent-color);
+          margin-left: 4px;
+          animation: blink 0.7s infinite;
+          vertical-align: middle;
+          position: relative;
+          top: -2px;
+        }
+
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+
+        .about-text {
+          font-size: 1.1rem;
+          margin-bottom: 2.5rem;
+          color: var(--text-secondary);
+          line-height: 1.7;
+        }
+
+        /* Stats Section */
+        .stats-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 3rem;
+        }
+
+        .stat-box {
+          background: var(--secondary-bg);
+          padding: 1.5rem;
+          border-radius: 10px;
+          text-align: center;
+          transition: all var(--transition-speed) ease;
+          border-bottom: 3px solid var(--accent-color);
+          transform: translateY(20px);
+          opacity: 0;
+        }
+
+        .stat-box.animate {
+          transform: translateY(0);
+          opacity: 1;
+        }
+
+        .stat-box:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 0 20px rgba(124, 240, 61, 0.3);
+        }
+
+        .stat-number {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: var(--accent-color);
+          margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+          font-size: 1rem;
+          color: var(--text-secondary);
+        }
+
+        /* Skills Container */
+        .skills-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 3rem;
+        }
+
+        .skill-box {
+          background: var(--secondary-bg);
+          padding: 1.5rem;
+          border-radius: 10px;
+          transition: all var(--transition-speed) ease;
+          border-left: 3px solid var(--accent-color);
+          position: relative;
+          overflow: hidden;
+          transform: translateY(20px);
+          opacity: 0;
+        }
+
+        .skill-box.animate {
+          transform: translateY(0);
+          opacity: 1;
+        }
+
+        .skill-box::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(45deg, rgba(124, 240, 61, 0.1), transparent);
+          z-index: 0;
+          opacity: 0;
+          transition: opacity var(--transition-speed) ease;
+        }
+
+        .skill-box:hover::before {
+          opacity: 1;
+        }
+
+        .skill-box:hover {
+          transform: translateY(-5px) scale(1.03);
+          box-shadow: 0 0 20px rgba(124, 240, 61, 0.3);
+        }
+
+        .skill-title {
+          display: flex;
+          align-items: center;
+          margin-bottom: 1rem;
+          position: relative;
+          z-index: 1;
+        }
+
+        .skill-title i {
+          font-size: 1.8rem;
+          color: var(--accent-color);
+          margin-right: 1rem;
+        }
+
+        .skill-title h3 {
+          font-size: 1.3rem;
+          font-weight: 600;
+        }
+
+        .skill-box p {
+          font-size: 0.95rem;
+          color: var(--text-secondary);
+          line-height: 1.6;
+          position: relative;
+          z-index: 1;
+        }
+
+        .skill-progress {
+          margin-top: 1rem;
+          height: 6px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 3px;
+          overflow: hidden;
+          position: relative;
+        }
+
+        .progress-bar {
+          height: 100%;
+          background: var(--accent-color);
+          border-radius: 3px;
+          position: relative;
+          transition: width 1.5s ease-in-out;
+        }
+
+        .progress-bar::after {
+          content: attr(data-percent);
+          position: absolute;
+          right: 5px;
+          top: -25px;
+          color: var(--accent-color);
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+
+        /* Button */
+        .btn {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0.8rem 2.2rem;
+          background: var(--accent-color);
+          color: var(--primary-bg);
+          border-radius: 40px;
+          font-size: 1.1rem;
+          font-weight: 600;
+          letter-spacing: 1px;
+          transition: all var(--transition-speed) ease;
+          box-shadow: 0 0 15px rgba(124, 240, 61, 0.4);
+          text-decoration: none;
+          border: none;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+          z-index: 1;
+          transform: translateY(20px);
+          opacity: 0;
+        }
+
+        .btn.animate {
+          transform: translateY(0);
+          opacity: 1;
+        }
+
+        .btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: 0.5s;
+          z-index: -1;
+        }
+
+        .btn:hover::before {
+          left: 100%;
+        }
+
+        .btn:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 0 25px var(--accent-color);
+        }
+
+        /* Testimonial Section */
+        .testimonial-container {
+          background: var(--secondary-bg);
+          padding: 2rem;
+          border-radius: 15px;
+          margin-top: 3rem;
+          position: relative;
+          overflow: hidden;
+          transform: translateY(20px);
+          opacity: 0;
+          transition: all 0.5s ease;
+        }
+
+        .testimonial-container.animate {
+          transform: translateY(0);
+          opacity: 1;
+        }
+
+        .testimonial-container::before {
+          content: '\201C';
+          position: absolute;
+          top: 0;
+          left: 20px;
+          font-size: 8rem;
+          color: rgba(124, 240, 61, 0.1);
+          font-family: serif;
+          line-height: 1;
+        }
+
+        .testimonial-quote {
+          font-size: 1.1rem;
+          font-style: italic;
+          margin-bottom: 1rem;
+          position: relative;
+          z-index: 1;
+        }
+
+        .testimonial-author {
+          display: flex;
+          align-items: center;
+        }
+
+        .testimonial-author img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          margin-right: 1rem;
+          object-fit: cover;
+          border: 2px solid var(--accent-color);
+        }
+
+        .author-info h4 {
+          font-size: 1.1rem;
+          margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+          .section-title {
+              font-size: 3rem;
+          }
+          
+          .animated-text {
+              font-size: 2.2rem;
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .about-content {
+              grid-template-columns: 1fr;
+          }
+          
+          .about-image {
+              order: -1;
+              margin-bottom: 3rem;
+          }
+          
+          .about-info {
+              text-align: center;
+          }
+          
+          .skill-title {
+              justify-content: center;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .menu-toggle {
+              display: block;
+          }
+          
+          .nav-links {
+              position: fixed;
+              top: 0;
+              right: -100%;
+              width: 80%;
+              max-width: 300px;
+              height: 100vh;
+              background: var(--primary-bg);
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              padding: 2rem;
+              transition: right 0.5s ease;
+          }
+          
+          .nav-links.active {
+              right: 0;
+          }
+          
+          .nav-links li {
+              margin: 1.5rem 0;
+          }
+          
+          .about {
+              padding: 8rem 5% 3rem;
+          }
+          
+          .section-title {
+              font-size: 2.5rem;
+          }
+          
+          .animated-text {
+              font-size: 2rem;
+          }
+          
+          .skills-container {
+              grid-template-columns: 1fr;
+          }
+          
+          .stats-container {
+              grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 576px) {
+          .section-title {
+              font-size: 2.2rem;
+          }
+          
+          .animated-text {
+              font-size: 1.7rem;
+          }
+          
+          .cursor {
+              height: 2rem;
+          }
+          
+          .btn {
+              padding: 0.7rem 1.8rem;
+              font-size: 1rem;
+          }
+          
+          .logo {
+              font-size: 2rem;
+          }
+          
+          .stats-container {
+              grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .section-title {
+              font-size: 2rem;
+          }
+          
+          .animated-text {
+              font-size: 1.5rem;
+          }
+          
+          .cursor {
+              height: 1.8rem;
+          }
+          
+          .stats-container {
+              grid-template-columns: 1fr;
+          }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">SA</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="active"><a href="#about">About</a></li>
+                <li><a href="Portfolio.html">Portfolio</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section class="about" id="about">
+            <div class="about-content">
+                <div class="about-info">
+                    <h2 class="section-title animate__animated animate__fadeInDown">About <span>Me</span></h2>
+                    <div class="animation-container animate__animated animate__fadeIn">
+                        <h3 class="animated-text">I'm <span id="about-typed-text"></span><span class="cursor">&nbsp;</span></h3>
+                    </div>
+                    <p class="about-text animate__animated animate__fadeIn">I am an AI Engineer with a passion for building intelligent solutions that bridge the gap between complex data and real-world applications. With expertise in machine learning, deep learning, computer vision, and natural language processing, I specialize in developing and deploying AI models that drive innovation.</p>
+                    
+                    <div class="stats-container">
+                        <div class="stat-box" id="stat-box-1">
+                            <div class="stat-number" id="projects-count">0</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-box" id="stat-box-2">
+                            <div class="stat-number" id="experience-count">0</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-box" id="stat-box-3">
+                            <div class="stat-number" id="clients-count">0</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                        <div class="stat-box" id="stat-box-4">
+                            <div class="stat-number" id="awards-count">0</div>
+                            <div class="stat-label">Awards Won</div>
+                        </div>
+                        <div class="stat-box" id="stat-box-5">
+                            <div class="stat-number" id="models-count">0</div>
+                            <div class="stat-label">AI Models Deployed</div>
+                        </div>
+                        <div class="stat-box" id="stat-box-6">
+                            <div class="stat-number" id="research-count">0</div>
+                            <div class="stat-label">Research Papers</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-container">
+                        <div class="skill-box" id="skill-box-1">
+                            <div class="skill-title">
+                                <i class='bx bx-brain'></i>
+                                <h3>Machine Learning</h3>
+                            </div>
+                            <p>Developing predictive models and algorithms to extract insights from complex datasets. Expertise in Scikit-learn, XGBoost, and feature engineering techniques.</p>
+                            <div class="skill-progress">
+                                <div class="progress-bar" data-percent="95%" style="width: 0"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-box" id="skill-box-2">
+                            <div class="skill-title">
+                                <i class='bx bx-code-alt'></i>
+                                <h3>Deep Learning</h3>
+                            </div>
+                            <p>Building and optimizing neural networks for computer vision and NLP tasks. Proficient in TensorFlow, PyTorch, and implementing state-of-the-art architectures.</p>
+                            <div class="skill-progress">
+                                <div class="progress-bar" data-percent="90%" style="width: 0"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-box" id="skill-box-3">
+                            <div class="skill-title">
+                                <i class='bx bx-chip'></i>
+                                <h3>Model Deployment</h3>
+                            </div>
+                            <p>Creating end-to-end AI systems from data preprocessing to production deployment. Experience with Docker, Flask, FastAPI, and cloud platforms.</p>
+                            <div class="skill-progress">
+                                <div class="progress-bar" data-percent="88%" style="width: 0"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial Section -->
+                    <div class="testimonial-container" id="testimonial-container">
+                        <p class="testimonial-quote" id="testimonial-quote"></p>
+                        <div class="testimonial-author">
+                            <img id="client-img" src="" alt="Client">
+                            <div class="author-info">
+                                <h4 id="client-name"></h4>
+                                <p id="client-role"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="contact.html" class="btn" id="collab-btn">Let's Collaborate</a>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="AI Developer" class="profile-img">
+                    
+                    <div class="tech-icons">
+                        <div class="tech-icon" style="top: 10%; left: 5%; animation-delay: 0s;">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div class="tech-icon" style="top: 20%; right: 5%; animation-delay: 0.5s;">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="tech-icon" style="top: 50%; left: 0%; animation-delay: 1s;">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="tech-icon" style="bottom: 20%; right: 10%; animation-delay: 1.5s;">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="tech-icon" style="bottom: 10%; left: 15%; animation-delay: 2s;">
+                            <i class="fas fa-database"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+            
+            mobileMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+            
+            // Scroll effect for header
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Typewriter Effect
+            const typedTextSpan = document.getElementById('about-typed-text');
+            const textArray = ["an AI Developer", "a Machine Learning Engineer", "a Data Scientist", "a Problem Solver"];
+            const typingDelay = 100;
+            const erasingDelay = 50;
+            const newTextDelay = 1000;
+            let textArrayIndex = 0;
+            let charIndex = 0;
+            
+            function type() {
+                if (charIndex < textArray[textArrayIndex].length) {
+                    typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(type, typingDelay);
+                } else {
+                    setTimeout(erase, newTextDelay);
+                }
+            }
+            
+            function erase() {
+                if (charIndex > 0) {
+                    typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex-1);
+                    charIndex--;
+                    setTimeout(erase, erasingDelay);
+                } else {
+                    textArrayIndex++;
+                    if(textArrayIndex>=textArray.length) textArrayIndex=0;
+                    setTimeout(type, typingDelay + 500);
+                }
+            }
+            
+            // Start animation
+            setTimeout(type, 1000);
+            
+            // Updated statistics with your requested numbers
+            const statsData = {
+                projects: 20,       // 20 projects
+                experience: 2,      // 2 years experience
+                clients: 10,         // 10 happy clients
+                awards: 2,           // 2 awards
+                models: 10,          // 10 models deployed
+                research: 1           // 1 research paper
+            };
+            
+            // Counter Animation with the updated values
+            function animateCounters() {
+                const counters = [
+                    { element: document.getElementById('projects-count'), target: statsData.projects },
+                    { element: document.getElementById('experience-count'), target: statsData.experience },
+                    { element: document.getElementById('clients-count'), target: statsData.clients },
+                    { element: document.getElementById('awards-count'), target: statsData.awards },
+                    { element: document.getElementById('models-count'), target: statsData.models },
+                    { element: document.getElementById('research-count'), target: statsData.research }
+                ];
+                
+                const speed = 200;
+                let completed = 0;
+                
+                counters.forEach(counter => {
+                    const target = counter.target;
+                    const element = counter.element;
+                    let count = 0;
+                    const increment = target / speed;
+                    
+                    const updateCounter = () => {
+                        count += increment;
+                        if(count < target) {
+                            element.innerText = Math.ceil(count);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            element.innerText = target;
+                            completed++;
+                            
+                            // Add "+" sign to certain counters when animation completes
+                            if(element.id === 'projects-count' || 
+                               element.id === 'clients-count' || 
+                               element.id === 'models-count') {
+                                element.innerText = target + '+';
+                            }
+                        }
+                    };
+                    
+                    updateCounter();
+                });
+            }
+            
+            // Animate skill progress bars
+            function animateProgressBars() {
+                const progressBars = document.querySelectorAll('.progress-bar');
+                progressBars.forEach(bar => {
+                    const targetWidth = bar.getAttribute('data-percent');
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = targetWidth;
+                    }, 100);
+                });
+            }
+            
+            // Client testimonials data
+            const testimonials = [
+                {
+                    quote: "Shoib's AI solution increased our productivity by 40% and reduced errors significantly. His attention to detail and problem-solving skills are exceptional.",
+                    name: "Sarah Johnson",
+                    role: "CTO at TechCorp Inc.",
+                    image: "https://randomuser.me/api/portraits/women/44.jpg"
+                },
+                {
+                    quote: "The machine learning model developed by Shoib outperformed all our expectations. He delivered the project ahead of schedule with outstanding results.",
+                    name: "Michael Chen",
+                    role: "Head of AI at DataSystems",
+                    image: "https://randomuser.me/api/portraits/men/32.jpg"
+                },
+                {
+                    quote: "Working with Shoib was a game-changer for our business intelligence platform. His deep technical expertise and communication skills are top-notch.",
+                    name: "Emma Rodriguez",
+                    role: "CEO at AnalyticsPro",
+                    image: "https://randomuser.me/api/portraits/women/65.jpg"
+                },
+                {
+                    quote: "His deep learning expertise helped us solve a critical computer vision challenge that had stumped our team for months. Highly recommended!",
+                    name: "David Kim",
+                    role: "Lead Engineer at VisionTech",
+                    image: "https://randomuser.me/api/portraits/men/75.jpg"
+                },
+                {
+                    quote: "Shoib transformed our data pipeline and implemented AI solutions that saved us thousands of hours annually. A true professional in every sense.",
+                    name: "Lisa Wong",
+                    role: "Director of Operations",
+                    image: "https://randomuser.me/api/portraits/women/23.jpg"
+                }
+            ];
+            
+            // Display random testimonial
+            function showRandomTestimonial() {
+                const testimonial = testimonials[Math.floor(Math.random() * testimonials.length)];
+                document.getElementById('testimonial-quote').textContent = testimonial.quote;
+                document.getElementById('client-name').textContent = testimonial.name;
+                document.getElementById('client-role').textContent = testimonial.role;
+                document.getElementById('client-img').src = testimonial.image;
+                document.getElementById('client-img').alt = testimonial.name;
+                
+                // Animate testimonial container
+                const container = document.getElementById('testimonial-container');
+                container.style.opacity = 0;
+                setTimeout(() => {
+                    container.style.opacity = 1;
+                }, 500);
+            }
+            
+            // Show random testimonial every 15 seconds
+            setInterval(showRandomTestimonial, 15000);
+            showRandomTestimonial(); // Show immediately on load
+            
+            // Animate elements on scroll
+            function animateOnScroll() {
+                const elements = [
+                    { id: 'stat-box-1', delay: 0 },
+                    { id: 'stat-box-2', delay: 100 },
+                    { id: 'stat-box-3', delay: 200 },
+                    { id: 'stat-box-4', delay: 300 },
+                    { id: 'stat-box-5', delay: 400 },
+                    { id: 'stat-box-6', delay: 500 },
+                    { id: 'skill-box-1', delay: 0 },
+                    { id: 'skill-box-2', delay: 100 },
+                    { id: 'skill-box-3', delay: 200 },
+                    { id: 'testimonial-container', delay: 300 },
+                    { id: 'collab-btn', delay: 400 }
+                ];
+                
+                elements.forEach(element => {
+                    const el = document.getElementById(element.id);
+                    if (el) {
+                        setTimeout(() => {
+                            el.classList.add('animate');
+                            
+                            // Animate counters when stats boxes become visible
+                            if (element.id.startsWith('stat-box')) {
+                                animateCounters();
+                            }
+                            
+                            // Animate progress bars when skill boxes become visible
+                            if (element.id.startsWith('skill-box')) {
+                                animateProgressBars();
+                            }
+                        }, element.delay);
+                    }
+                });
+            }
+            
+            // Initialize scroll animation
+            const aboutSection = document.querySelector('.about');
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    animateOnScroll();
+                }
+            }, {threshold: 0.3});
+            
+            observer.observe(aboutSection);
+        });
+    </script>
+</body>
+</html>

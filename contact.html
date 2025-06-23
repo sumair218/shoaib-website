@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Shoib Akhter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #1f242d;
+            --secondary-bg: #2a3039;
+            --accent-color: #7cf03d;
+            --text-primary: #fff;
+            --text-secondary: #b8b8b8;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(124, 240, 61, 0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            z-index: 101;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            transition: all 0.5s ease;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links li a {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover::after,
+        .nav-links li.active a::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 10rem 5% 6rem;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(124, 240, 61, 0.03) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .contact-info {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-info.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .contact-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            transition: width 0.6s ease;
+        }
+
+        .contact-title:hover::after {
+            width: 120px;
+        }
+
+        .contact-text {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .contact-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-item:nth-child(1) { transition-delay: 0.2s; }
+        .contact-item:nth-child(2) { transition-delay: 0.4s; }
+        .contact-item:nth-child(3) { transition-delay: 0.6s; }
+
+        .contact-icon {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-top: 0.3rem;
+            transition: all 0.4s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .contact-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-content p, 
+        .contact-content a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .contact-content a:hover {
+            color: var(--accent-color);
+        }
+
+        .platforms {
+            margin-top: 3rem;
+        }
+
+        .platforms-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .platform-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .platform-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: rgba(124, 240, 61, 0.1);
+            color: var(--accent-color);
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border: 1px solid rgba(124, 240, 61, 0.3);
+        }
+
+        .platform-link:hover {
+            background: rgba(124, 240, 61, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(124, 240, 61, 0.1);
+        }
+
+        .platform-link i {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: var(--secondary-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+        }
+
+        .contact-form.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(124, 240, 61, 0.2);
+            border-radius: 5px;
+            color: var(--text-primary);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(124, 240, 61, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(124, 240, 61, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: var(--text-secondary);
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        /* Form Status Messages */
+        .status-message {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .status-message.success {
+            background: rgba(124, 240, 61, 0.2);
+            border: 1px solid var(--accent-color);
+            display: block;
+        }
+
+        .status-message.error {
+            background: rgba(240, 61, 61, 0.2);
+            border: 1px solid #f03d3d;
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-links li {
+                margin-left: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact {
+                padding: 8rem 5% 4rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .contact-title {
+                font-size: 2.5rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                background: var(--secondary-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .contact-title {
+                font-size: 2rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .platform-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Toggle Animation */
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .toggle .line2 {
+            opacity: 0;
+        }
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Hamburger Menu -->
+    <header class="header">
+        <a href="#" class="logo">SA</a>
+        <div class="hamburger" id="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Portfolio.html">Portfolio</a></li>
+            <li><a href="Services.html">Services</a></li>
+            <li class="active"><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="contact-title">Get In Touch</h2>
+                <p class="contact-text">
+                    For project discussions, freelance services, or collaboration opportunities, 
+                    feel free to contact me directly:
+                </p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <div class="contact-content">
+                            <h4>Email</h4>
+                            <a href="mailto:shoaibakhter001001@gmail.com">shoaibakhter001001@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-clock contact-icon"></i>
+                        <div class="contact-content">
+                            <h4>Available Timings</h4>
+                            <p>Monday to Saturday, 10:00 AM – 6:00 PM (Pakistan Standard Time)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt contact-icon"></i>
+                        <div class="contact-content">
+                            <h4>Location</h4>
+                            <p>Konodass Gilgit, Pakistan</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="platforms">
+                    <h4 class="platforms-title">Freelance Profiles:</h4>
+                    <div class="platform-links">
+                        <a href="https://fiverr.com/XXXXXXXXX" target="_blank" class="platform-link">
+                            <i class="fab fa-fiverr"></i> Fiverr
+                        </a>
+                        <a href="https://upwork.com/freelancers/XXXXXXXX" target="_blank" class="platform-link">
+                            <i class="fab fa-upwork"></i> Upwork
+                        </a>
+                        <a href="https://freelancer.com/u/XXXXXX" target="_blank" class="platform-link">
+                            <i class="fas fa-laptop-code"></i> Freelancer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form id="contactForm" action="https://formspree.io/f/myyqyqkz" method="POST">
+                    <div id="formStatus" class="status-message"></div>
+                    
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn" class="submit-btn">
+                        <span id="btnText">Send Message</span>
+                        <span id="btnLoading" style="display:none;">
+                            <i class="fas fa-spinner fa-spin"></i> Sending...
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hamburger Menu Toggle
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                hamburger.classList.toggle('toggle');
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    hamburger.classList.remove('toggle');
+                });
+            });
+
+            // Animate elements when they come into view
+            const contactInfo = document.querySelector('.contact-info');
+            const contactItems = document.querySelectorAll('.contact-item');
+            const contactForm = document.querySelector('.contact-form');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        
+                        // Animate contact items sequentially
+                        if (entry.target.classList.contains('contact-info')) {
+                            contactItems.forEach((item, index) => {
+                                setTimeout(() => {
+                                    item.classList.add('show');
+                                }, index * 200);
+                            });
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            observer.observe(contactInfo);
+            observer.observe(contactForm);
+
+            // Form submission handling
+            const contactFormElement = document.getElementById('contactForm');
+            const formStatus = document.getElementById('formStatus');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnLoading = document.getElementById('btnLoading');
+
+            contactFormElement.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                btnText.style.display = 'none';
+                btnLoading.style.display = 'inline';
+                
+                try {
+                    const formData = new FormData(contactFormElement);
+                    const response = await fetch(contactFormElement.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        // Success message
+                        formStatus.textContent = 'Thank you! Your message has been sent successfully.';
+                        formStatus.className = 'status-message success';
+                        contactFormElement.reset();
+                    } else {
+                        // Error message
+                        const data = await response.json();
+                        if (data.errors) {
+                            formStatus.textContent = data.errors.map(error => error.message).join(', ');
+                        } else {
+                            formStatus.textContent = 'Oops! There was a problem submitting your form. Please try again later.';
+                        }
+                        formStatus.className = 'status-message error';
+                    }
+                } catch (error) {
+                    // Network error
+                    formStatus.textContent = 'Oops! There was a problem submitting your form. Please try again later.';
+                    formStatus.className = 'status-message error';
+                } finally {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    btnText.style.display = 'inline';
+                    btnLoading.style.display = 'none';
+                    
+                    // Scroll to status message
+                    formStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Hide status message after 5 seconds
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

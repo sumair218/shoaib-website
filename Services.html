@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoib Akhter - AI Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #1f242d;
+            --secondary-bg: #2a3039;
+            --accent-color: #7cf03d;
+            --text-primary: #fff;
+            --text-secondary: #b8b8b8;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(31, 36, 45, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-speed) ease;
+            border-bottom: 1px solid rgba(124, 240, 61, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .header.scrolled {
+            padding: 1rem 5%;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 15px rgba(124, 240, 61, 0.6);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            transition: all 0.5s ease;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+            position: relative;
+        }
+
+        .nav-links li a {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li.active a {
+            color: var(--accent-color);
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width var(--transition-speed) ease;
+        }
+
+        .nav-links li a:hover::after,
+        .nav-links li.active a::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            z-index: 101;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-color);
+            transition: all var(--transition-speed) ease;
+            transform-origin: center;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(124, 240, 61, 0.05);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(50px, 50px) rotate(180deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 10rem 5% 5rem;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title span {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(124, 240, 61, 0.5);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            perspective: 1000px;
+        }
+
+        .service-card {
+            background: rgba(42, 48, 57, 0.7);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(124, 240, 61, 0.1);
+            backdrop-filter: blur(5px);
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(124, 240, 61, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 15px 40px rgba(124, 240, 61, 0.2);
+            border-color: rgba(124, 240, 61, 0.3);
+        }
+
+        .service-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .service-icon-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(124, 240, 61, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-icon-container::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(124, 240, 61, 0.2) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            border-radius: 50%;
+        }
+
+        .service-card:hover .service-icon-container::before {
+            transform: scale(1.5);
+        }
+
+        .service-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .service-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-item {
+            background: rgba(124, 240, 61, 0.1);
+            color: var(--accent-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(124, 240, 61, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: rgba(124, 240, 61, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Image Display */
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .service-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .image-caption {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-tech {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .image-container:hover {
+            box-shadow: 0 12px 30px rgba(124, 240, 61, 0.2);
+        }
+
+        .image-container:hover .service-image {
+            transform: scale(1.05);
+        }
+
+        .image-container:hover .image-overlay {
+            transform: translateY(0);
+        }
+
+        /* Demo Button */
+        .demo-btn {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            border: 2px solid var(--accent-color);
+        }
+
+        .demo-btn:hover {
+            background: transparent;
+            color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(124, 240, 61, 0.4);
+        }
+
+        /* Modal for image preview */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(124, 240, 61, 0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .nav-links li {
+                margin-left: 2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header {
+                padding: 1.2rem 5%;
+            }
+            
+            .nav-links li {
+                margin-left: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--primary-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+                transition: right 0.5s ease;
+                border-left: 1px solid rgba(124, 240, 61, 0.1);
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links li a {
+                justify-content: center;
+                padding: 0.8rem 0;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+
+            .services-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem 5%;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2.4rem;
+            }
+            
+            .nav-links {
+                width: 80%;
+            }
+
+            .image-container {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            .service-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="bg-circle" style="width: 600px; height: 600px; top: -300px; left: -300px; animation-delay: 0s;"></div>
+        <div class="bg-circle" style="width: 400px; height: 400px; bottom: -200px; right: -200px; animation-delay: 3s;"></div>
+        <div class="bg-circle" style="width: 300px; height: 300px; top: 30%; right: -150px; animation-delay: 6s;"></div>
+        <div class="bg-circle" style="width: 500px; height: 500px; bottom: -250px; left: -250px; animation-delay: 9s;"></div>
+    </div>
+
+    <!-- Header with no icons -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo">SA</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Portfolio.html">Portfolio</a></li>
+                <li class="active"><a href="Services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">My <span>Services</span></h2>
+        
+        <div class="services-container">
+            <!-- Data Analysis Service -->
+            <div class="service-card">
+                <div class="service-icon-container">
+                    <i class="fas fa-chart-line service-icon"></i>
+                </div>
+                <h3 class="service-title">Data Analysis & Visualization</h3>
+                <p class="service-desc">
+                    Clean, explore, and visualize data to uncover actionable insights using Python, Pandas, Matplotlib, and Seaborn.
+                    Transform raw data into beautiful, interactive visualizations that tell compelling stories.
+                </p>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Data Visualization" 
+                         class="service-image"
+                         data-full="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                    <div class="image-overlay">
+                        <h4 class="image-caption">Data Visualization Dashboard</h4>
+                        <p class="image-tech">Python • Pandas • Matplotlib</p>
+                        <a href="#" class="demo-btn">View Demo</a>
+                    </div>
+                </div>
+                
+                <div class="tech-stack">
+                    <span class="tech-item">Python</span>
+                    <span class="tech-item">Pandas</span>
+                    <span class="tech-item">Matplotlib</span>
+                    <span class="tech-item">Seaborn</span>
+                    <span class="tech-item">Plotly</span>
+                </div>
+            </div>
+            
+            <!-- Machine Learning Service -->
+            <div class="service-card">
+                <div class="service-icon-container">
+                    <i class="fas fa-brain service-icon"></i>
+                </div>
+                <h3 class="service-title">Machine Learning Models</h3>
+                <p class="service-desc">
+                    Build and deploy predictive models using Scikit-learn, XGBoost, and LightGBM.
+                    From regression to classification, I create models that deliver real business value.
+                </p>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1535378917042-10a22c95931a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" 
+                         alt="Machine Learning" 
+                         class="service-image"
+                         data-full="https://images.unsplash.com/photo-1535378917042-10a22c95931a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80">
+                    <div class="image-overlay">
+                        <h4 class="image-caption">ML Model Performance</h4>
+                        <p class="image-tech">Scikit-learn • XGBoost • LightGBM</p>
+                        <a href="#" class="demo-btn">View Demo</a>
+                    </div>
+                </div>
+                
+                <div class="tech-stack">
+                    <span class="tech-item">Scikit-learn</span>
+                    <span class="tech-item">XGBoost</span>
+                    <span class="tech-item">LightGBM</span>
+                    <span class="tech-item">CatBoost</span>
+                    <span class="tech-item">Feature Engineering</span>
+                </div>
+            </div>
+            
+            <!-- Deep Learning Service -->
+            <div class="service-card">
+                <div class="service-icon-container">
+                    <i class="fas fa-network-wired service-icon"></i>
+                </div>
+                <h3 class="service-title">Deep Learning Solutions</h3>
+                <p class="service-desc">
+                    Design CNNs, RNNs, and Transformers using TensorFlow and PyTorch for computer vision, NLP, and time-series tasks.
+                    State-of-the-art architectures tailored to your specific needs.
+                </p>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1465&q=80" 
+                         alt="Deep Learning" 
+                         class="service-image"
+                         data-full="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1465&q=80">
+                    <div class="image-overlay">
+                        <h4 class="image-caption">Neural Network Architecture</h4>
+                        <p class="image-tech">TensorFlow • PyTorch • Keras</p>
+                        <a href="#" class="demo-btn">View Demo</a>
+                    </div>
+                </div>
+                
+                <div class="tech-stack">
+                    <span class="tech-item">TensorFlow</span>
+                    <span class="tech-item">PyTorch</span>
+                    <span class="tech-item">Keras</span>
+                    <span class="tech-item">CNN/RNN</span>
+                    <span class="tech-item">Transformers</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Preview Modal -->
+    <div class="modal" id="image-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="" alt="Preview" class="modal-img" id="modal-image">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+            
+            if (mobileMenu && navLinks) {
+                mobileMenu.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+                });
+                
+                // Close menu when clicking on links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Highlight active section in navigation
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-links li');
+            
+            function highlightNav() {
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.scrollY >= sectionTop - 300) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    const link = item.querySelector('a');
+                    if (link.getAttribute('href').includes(currentSection)) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightNav);
+            highlightNav(); // Call on load
+            
+            // Image modal functionality
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            const closeModal = document.querySelector('.close-modal');
+            
+            document.querySelectorAll('.service-image').forEach(img => {
+                img.addEventListener('click', function() {
+                    modal.classList.add('active');
+                    modalImg.src = this.dataset.full;
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closeModal.addEventListener('click', function() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // 3D tilt effect for service cards
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                    const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                    card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+                });
+                
+                card.addEventListener('mouseenter', () => {
+                    card.style.transition = 'none';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+                });
+            });
+            
+            // Animate service cards on scroll
+            const animateOnScroll = () => {
+                serviceCards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state
+            serviceCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.8s ease';
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Trigger on load
+        });
+    </script>
+</body>
+</html>
